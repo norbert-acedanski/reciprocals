@@ -50,5 +50,5 @@ def calculateDecimalExpansion(number: int, printShortDescription: bool=True):
 if __name__ == "__main__":
     for i in range(2, 100):
         calculateDecimalExpansion(i, True)
-    #Line of code below currently takes 415s to compute
+    #Line of code below currently takes more than 400s to compute
     calculateDecimalExpansion(60017)
