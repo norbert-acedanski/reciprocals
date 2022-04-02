@@ -1,47 +1,47 @@
 import sys
 
-def calculateDecimalExpansion(number: int, printShortDescription: bool=True):
+def calculate_decimal_expansion(number: int, print_short_description: bool=True):
     if number < 2:
         print("Enter number greater than 1!")
         sys.exit()
-    decimalExpansionList = []
-    remainderList = []
-    currentRemainder = 1
-    # wholeDivisionProduct = 0
-    periodIndex = -1
+    decimal_expansion_list = []
+    remainder_list = []
+    current_remainder = 1
+    # whole_division_product = 0
+    period_index = -1
     while True:
-        currentRemainder *= 10
-        wholeDivisionProduct = currentRemainder // number
-        currentRemainder %= number
-        if wholeDivisionProduct in decimalExpansionList:
-            indeces = [i for i, x in enumerate(decimalExpansionList) if x == wholeDivisionProduct]
+        current_remainder *= 10
+        whole_division_product = current_remainder // number
+        current_remainder %= number
+        if whole_division_product in decimal_expansion_list:
+            indeces = [i for i, x in enumerate(decimal_expansion_list) if x == whole_division_product]
             for i in indeces:
-                if remainderList[i] == currentRemainder and currentRemainder != 0:
-                    periodIndex = i
+                if remainder_list[i] == current_remainder and current_remainder != 0:
+                    period_index = i
                     break
-        if currentRemainder == 0:
-            periodIndex = -1
+        if current_remainder == 0:
+            period_index = -1
             break
-        elif periodIndex >= 0:
+        elif period_index >= 0:
             break
-        decimalExpansionList.append(wholeDivisionProduct)
-        remainderList.append(currentRemainder)
-    if currentRemainder == 0:
-        if printShortDescription:
+        decimal_expansion_list.append(whole_division_product)
+        remainder_list.append(current_remainder)
+    if current_remainder == 0:
+        if print_short_description:
             print("Reciprocal of " + str(number) + " has no period.")
             print("1/" + str(number) + " = ", end="")
         print("0.", end="")
     else:
-        if printShortDescription:
-            print("Number of digits in a period of decinal expansion of " + str(number) + ": " + str(len(decimalExpansionList)))
+        if print_short_description:
+            print("Number of digits in a period of decinal expansion of " + str(number) + ": " + str(len(decimal_expansion_list)))
             print("Decimal expansion of 1/" + str(number) + ": ", end="")
         print("0.", end="")
-    for index, number in enumerate(decimalExpansionList):
-        if index == periodIndex:
+    for index, number in enumerate(decimal_expansion_list):
+        if index == period_index:
             print("(", end="")
         print(number, end="")
-    if currentRemainder == 0:
-        print(wholeDivisionProduct, end="")
+    if current_remainder == 0:
+        print(whole_division_product, end="")
     else:
         print(")", end="")
     print("")
@@ -49,6 +49,6 @@ def calculateDecimalExpansion(number: int, printShortDescription: bool=True):
 
 if __name__ == "__main__":
     for i in range(2, 100):
-        calculateDecimalExpansion(i, True)
+        calculate_decimal_expansion(i, True)
     #Line of code below currently takes more than 400s to compute
-    calculateDecimalExpansion(60017)
+    calculate_decimal_expansion(60017)
