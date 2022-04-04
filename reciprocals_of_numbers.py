@@ -1,9 +1,6 @@
-import sys
-
 def calculate_decimal_expansion(number: int, print_short_description: bool=True):
     if number < 2:
-        print("Enter number greater than 1!")
-        sys.exit()
+        raise ValueError("Enter number greater than 1!")
     decimal_expansion_list = []
     remainder_list = []
     current_remainder = 1
