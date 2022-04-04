@@ -47,5 +47,5 @@ def calculate_decimal_expansion(number: int, print_short_description: bool=True)
 if __name__ == "__main__":
     for i in range(2, 100):
         calculate_decimal_expansion(i, True)
-    #Line of code below currently takes more than 400s to compute
+    #Line of code below currently takes more than 140s to compute
     calculate_decimal_expansion(60017)
