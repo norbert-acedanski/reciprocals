@@ -4,7 +4,7 @@
 Script provides way of calculating the number of digits in a period of the reciprocal of a number and the actual period.
 
 # Built With
-Python 3.8.0
+Python 3.9.10
 
 # Getting started
 
