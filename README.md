@@ -8,7 +8,7 @@ Python 3.9.10
 
 # Getting started
 
-### Working with document-statistics:
+### Working with reciprocals:
 1. Call a function with a number, you want to calculate the reciprocal of.
 2. Specify, whether you want to see some information or just the reciprocal.
 3. Script should print the reciprocal and/or basic description.
