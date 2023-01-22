@@ -1,51 +1,41 @@
-def calculate_decimal_expansion(number: int, print_short_description: bool = True):
+from typing import Dict
+
+
+def calculate_decimal_expansion(number: int) -> Dict[str, str]:
     if number < 2:
         raise ValueError("Enter number greater than 1!")
+    expansion = {"non-periodic expansion": None, "periodic expansion": ""}
+    multiplied_reminder = 1
     decimal_expansion_list = []
-    remainder_list = []
-    current_remainder = 1
-    # whole_division_product = 0
-    period_index = -1
+    reminders_list = []
     while True:
-        current_remainder *= 10
-        whole_division_product = current_remainder // number
-        current_remainder %= number
-        if whole_division_product in decimal_expansion_list:
-            indices = [i for i, x in enumerate(decimal_expansion_list) if x == whole_division_product]
-            for i in indices:
-                if remainder_list[i] == current_remainder and current_remainder != 0:
-                    period_index = i
-                    break
-        if current_remainder == 0:
+        multiplied_reminder *= 10
+        whole_division_product = multiplied_reminder // number
+        reminder = multiplied_reminder % number
+        if reminder == 0:
+            decimal_expansion_list.append(str(whole_division_product))
             period_index = -1
             break
-        elif period_index >= 0:
+        if (next_term := (multiplied_reminder, reminder)) in reminders_list:
+            period_index = reminders_list.index(next_term)
             break
-        decimal_expansion_list.append(whole_division_product)
-        remainder_list.append(current_remainder)
-    if current_remainder == 0:
-        if print_short_description:
-            print(f"Reciprocal of {number} has no period.")
-            print(f"1/{number} = ", end="")
-        print("0.", end="")
+        decimal_expansion_list.append(str(whole_division_product))
+        reminders_list.append(next_term)
+        multiplied_reminder = reminder
+    if period_index == -1:
+        expansion["non-periodic expansion"] = "".join(decimal_expansion_list)
     else:
-        if print_short_description:
-            print(f"Number of digits in a period of decimal expansion of {number}: {len(decimal_expansion_list)}")
-            print(f"Decimal expansion of 1/{number}: ", end="")
-        print("0.", end="")
-    for index, number in enumerate(decimal_expansion_list):
-        if index == period_index:
-            print("(", end="")
-        print(number, end="")
-    if current_remainder == 0:
-        print(whole_division_product, end="")
-    else:
-        print(")", end="")
-    print("")
+        expansion["non-periodic expansion"] = "".join(decimal_expansion_list[:period_index])
+        expansion["periodic expansion"] = "".join(decimal_expansion_list[period_index:])
+    return expansion
 
 
 if __name__ == "__main__":
-    for number in range(2, 100):
-        calculate_decimal_expansion(number, print_short_description=True)
-    # Line of code below currently takes more than 140s to compute
+    for num in range(2, 100):
+        number_expansion = calculate_decimal_expansion(number=num)
+        print(f"Number 1/{num} decimal expansion: ", end="")
+        print(f"0.{number_expansion['non-periodic expansion']}", end="")
+        period = number_expansion['periodic expansion']
+        print(f"({period})") if period else print("")
+    # Line of code below currently takes roughly 50s to compute
     calculate_decimal_expansion(60017)
